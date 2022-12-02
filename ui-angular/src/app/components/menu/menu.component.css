@@ -1,0 +1,11 @@
+.container {
+    background-color: red;
+}
+
+.menuButton {
+    width: 126px;
+    height: 80px;
+}
+mat-stroked-button {
+    width: 2cm;
+}

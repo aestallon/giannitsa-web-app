@@ -1,0 +1,4 @@
+rootProject.name = 'giannitsa'
+
+include 'app-configs'
+include 'ui-angular'

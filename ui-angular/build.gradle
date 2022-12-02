@@ -1,0 +1,17 @@
+plugins {
+  id 'java'
+  id "com.github.node-gradle.node" version "3.5.0"
+}
+
+
+node {
+  version = '16.17.1'
+  npmVersion = '8.15.0'
+  download = true
+}
+
+jar.dependsOn('npm_run_build')
+
+jar {
+  from 'dist/ui-angular' into 'static'
+}
