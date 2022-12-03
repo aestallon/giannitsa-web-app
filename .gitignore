@@ -78,3 +78,7 @@ _ReSharper*/
 # System files
 **/.DS_Store
 **/Thumbs.db
+
+# OpenApi
+**/.openapi-generator-ignore
+**/.openapi-generator
