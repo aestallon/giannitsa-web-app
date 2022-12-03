@@ -6,6 +6,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button'
+import { MatCommonModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card'
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -17,7 +19,9 @@ import { HttpClientModule } from '@angular/common/http'
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MatCommonModule,
     MatButtonModule,
+    MatCardModule,
     HttpClientModule
   ],
   providers: [],

@@ -82,3 +82,4 @@ _ReSharper*/
 # OpenApi
 **/.openapi-generator-ignore
 **/.openapi-generator
+**/openapi.yaml

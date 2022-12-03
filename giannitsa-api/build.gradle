@@ -1,0 +1,63 @@
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
+    id "org.openapi.generator" version "6.2.1"
+}
+
+group 'hu.aestallon'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'org.springframework.boot:spring-boot-starter-validation'
+    api 'org.springframework.boot:spring-boot-starter-data-jpa'
+    api 'org.springframework:spring-webmvc:5.3.21'
+    api 'com.fasterxml.jackson.core:jackson-core:2.14.0'
+
+    api 'javax.servlet:javax.servlet-api'
+    api 'io.swagger.core.v3:swagger-annotations:2.2.6'
+    api 'org.springframework.data:spring-data-commons:2.7.1'
+    api 'com.google.code.findbugs:jsr305:3.0.2'
+    api 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.0'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    api 'org.openapitools:jackson-databind-nullable:0.2.4'
+    api 'org.springframework.boot:spring-boot-starter-validation:2.7.1'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$rootDir/giannitsa-api/src/main/resources/giannitsa.yaml".toString()
+    outputDir = "$rootDir/giannitsa-api".toString()
+    apiPackage = "hu.aestallon.giannitsa.api"
+    modelPackage = "hu.aestallon.giannitsa.model"
+    configOptions = [
+            dateLibrary          : "java8",
+            delegatePattern      : "true",
+            fullJavaUtil         : "true",
+            library              : "spring-boot",
+            documentationProvied : "none",
+            useOptional          : "true",
+            useSwaggerUI         : "false"
+    ]
+    globalProperties = [
+            apis            : "",
+            models          : ""
+    ]
+    supportingFilesConstrainedTo = [
+            "ApiUtil.java",
+            "RFC3339DateFormat.java"
+    ]
+}

@@ -1,11 +1,10 @@
 .container {
-    background-color: red;
+    outline: 2px;
+    outline-width: 2px;
+    outline-color: beige;
 }
 
 .menuButton {
     width: 126px;
     height: 80px;
-}
-mat-stroked-button {
-    width: 2cm;
 }

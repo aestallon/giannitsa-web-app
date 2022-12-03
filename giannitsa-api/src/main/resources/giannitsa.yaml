@@ -23,7 +23,14 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/HomilyUploadRequest'
+              type: object
+              required: [homily]
+              properties:
+                homily:
+                  $ref: '#/components/schemas/Homily'
+                content:
+                  type: string
+                  format: binary
       responses:
         "200":
           description: Ok
@@ -39,12 +46,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  homilies:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Homily'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Homily'
   /homily/{homilyId}:
     get:
       tags:

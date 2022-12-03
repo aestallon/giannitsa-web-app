@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate:openapi": "openapi-generator-cli generate -i ../app-configs/src/main/resources/giannitsa.yaml -g typescript-angular -o src/app/giannitsa"
   },
   "private": true,
   "dependencies": {
