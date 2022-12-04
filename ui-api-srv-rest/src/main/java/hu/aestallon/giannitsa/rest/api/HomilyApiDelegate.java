@@ -16,7 +16,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link HomilyApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-12-04T21:05:18.073107600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-12-04T21:55:12.135624600+01:00[Europe/Budapest]")
 public interface HomilyApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -129,13 +129,13 @@ public interface HomilyApiDelegate {
      * Sets the specified image as the homily&#39;s cover illustration. 
      *
      * @param homilyId The ID of the homily to retrieve (required)
-     * @param body  (required)
+     * @param image  (required)
      * @return Ok (status code 200)
      *         or Homily ID is invalid (status code 412)
      * @see HomilyApi#setHomilyCoverIllustration
      */
     default ResponseEntity<Void> setHomilyCoverIllustration(Long homilyId,
-        MultipartFile body) {
+        MultipartFile image) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

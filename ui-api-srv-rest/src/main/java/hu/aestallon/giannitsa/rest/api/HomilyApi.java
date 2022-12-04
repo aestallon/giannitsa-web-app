@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-12-04T21:05:18.073107600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-12-04T21:55:12.135624600+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "homily", description = "Endpoints relating to CRUD operations for homilies.")
 public interface HomilyApi {
@@ -163,7 +163,7 @@ public interface HomilyApi {
         tags = { "homily" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Image retrieved successfully.", content = {
-                @Content(mediaType = "binary/octet-stream", schema = @Schema(implementation = org.springframework.core.io.Resource.class))
+                @Content(mediaType = "application/octet-stream", schema = @Schema(implementation = org.springframework.core.io.Resource.class))
             }),
             @ApiResponse(responseCode = "204", description = "Homily has no cover illustration."),
             @ApiResponse(responseCode = "412", description = "Homily does not exist.")
@@ -172,7 +172,7 @@ public interface HomilyApi {
     @RequestMapping(
         method = RequestMethod.GET,
         value = "/homily/{homilyId}/coverIllustration",
-        produces = { "binary/octet-stream" }
+        produces = { "application/octet-stream" }
     )
     default ResponseEntity<org.springframework.core.io.Resource> getHomilyCoverIllustration(
         @Parameter(name = "homilyId", description = "The ID of the homily to retrieve", required = true) @PathVariable("homilyId") Long homilyId
@@ -215,7 +215,7 @@ public interface HomilyApi {
      * Sets the specified image as the homily&#39;s cover illustration. 
      *
      * @param homilyId The ID of the homily to retrieve (required)
-     * @param body  (required)
+     * @param image  (required)
      * @return Ok (status code 200)
      *         or Homily ID is invalid (status code 412)
      */
@@ -231,13 +231,13 @@ public interface HomilyApi {
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/homily/{homilyId}/coverIllustration",
-        consumes = { "binary/octet-stream" }
+        consumes = { "multipart/form-data" }
     )
     default ResponseEntity<Void> setHomilyCoverIllustration(
         @Parameter(name = "homilyId", description = "The ID of the homily to retrieve", required = true) @PathVariable("homilyId") Long homilyId,
-        @Parameter(name = "body", description = "", required = true) @Valid @RequestBody MultipartFile body
+        @Parameter(name = "image", description = "", required = true) @RequestPart(value = "image", required = true) MultipartFile image
     ) {
-        return getDelegate().setHomilyCoverIllustration(homilyId, body);
+        return getDelegate().setHomilyCoverIllustration(homilyId, image);
     }
 
 

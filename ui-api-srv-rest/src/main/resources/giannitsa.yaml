@@ -141,10 +141,17 @@ paths:
       requestBody:
         required: true
         content:
-          binary/octet-stream:
+          multipart/form-data:
             schema:
-              type: string
-              format: binary
+              type: object
+              required: [image]
+              properties:
+                image:
+                  type: string
+                  format: binary
+            encoding:
+              image:
+                contentType: image/png, image/jpeg
       responses:
         "200":
           description: Ok
@@ -170,7 +177,7 @@ paths:
         "200":
           description: "Image retrieved successfully."
           content:
-            binary/octet-stream:
+            application/octet-stream:
               schema:
                 type: string
                 format: binary
