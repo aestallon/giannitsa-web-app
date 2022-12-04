@@ -22,7 +22,7 @@ public class HomilyServiceImpl implements HomilyService {
 
   @Override
   public void deleteHomily(Long homilyId) {
-    throw new IllegalStateException("Not implemented");
+    homilyRepository.deleteById(homilyId);
   }
 
   @Override

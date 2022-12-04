@@ -3,7 +3,9 @@ plugins {
     id 'org.springframework.boot' version '2.7.5'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
-
+ext {
+    lombokVersion = "1.18.24"
+}
 
 repositories {
     mavenCentral()
@@ -12,6 +14,9 @@ repositories {
 dependencies {
     api 'org.springframework.data:spring-data-commons:2.7.1'
     api 'org.springframework.boot:spring-boot-starter-data-jdbc:2.7.6'
+
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
