@@ -1,4 +1,16 @@
-allprojects {
-    group = 'hu.aestallon'
-    version = '0.0.1-SNAPSHOT'
+plugins {
+    id 'java'
+}
+
+subprojects {
+    if (it.name != 'giannitsa-ui-angular') {
+        group = 'hu.aestallon.giannitsa'
+        version = '1.0.0'
+
+        java {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(17))
+            }
+        }
+    }
 }

@@ -1,6 +1,17 @@
-rootProject.name = 'giannitsa'
+rootProject.name = 'app-giannitsa'
 
-include 'app-configs'
-include 'ui-angular'
-include 'giannitsa-api'
+include 'giannitsa-app-server'
+project(':giannitsa-app-server').projectDir = file('app-configs')
+
+include 'giannitsa-ui-api-srv-rest'
+project(':giannitsa-ui-api-srv-rest').projectDir = file('ui-api-srv-rest')
+
+include 'giannitsa-ui-angular'
+project(':giannitsa-ui-angular').projectDir = file('ui-angular')
+
+include 'giannitsa-domain'
+project(':giannitsa-domain').projectDir = file('domain')
+
+include 'giannitsa-domain-api'
+project(':giannitsa-domain-api').projectDir = file('domain-api')
 

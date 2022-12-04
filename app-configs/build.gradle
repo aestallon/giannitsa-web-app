@@ -28,7 +28,7 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    implementation project(':giannitsa-api')
+    implementation project(':giannitsa-ui-api-srv-rest')
     //implementation project(':ui-angular')
 }
 

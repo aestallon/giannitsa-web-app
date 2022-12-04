@@ -1,0 +1,339 @@
+openapi: 3.0.3
+info:
+  title: Giannitsa Web App API
+  description: To-Do
+  contact:
+    name: Szabolcs Bazil Papp
+    email: papp.szabolcs.bazil@gmail.com
+  version: 1.0.0
+
+tags:
+  - name: homily
+    description: Endpoints relating to CRUD operations for homilies.
+  - name: schedule
+    description: Endpoints relating to CRUD operations concerning service schedules
+
+paths:
+  /homily:
+    post:
+      tags:
+        - homily
+      summary: Uploads a new homily.
+      description: ""
+      operationId: postHomily
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [homily]
+              properties:
+                homily:
+                  $ref: '#/components/schemas/Homily'
+                content:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Ok
+    get:
+      tags:
+        - homily
+      summary: Retrieves every homily.
+      description: "Retrieves all stored homilies."
+      operationId: getAllHomilies
+      responses:
+        "200":
+          description: "Successful retrieval of every homily"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Homily'
+  /homily/{homilyId}:
+    get:
+      tags:
+        - homily
+      summary: Retrieves a single homily by its id.
+      description: "Retrieves a single homily by its id."
+      operationId: getHomily
+      parameters:
+        - name: homilyId
+          in: path
+          description: The ID of the homily to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Homily'
+    put:
+      tags:
+        - homily
+      summary: Updates the data of a single homily.
+      description: Updates the contents of a single homily
+      operationId: updateHomily
+      parameters:
+        - name: homilyId
+          in: path
+          description: The ID of the homily to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Homily'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Homily'
+        '404':
+          description: Homily not found
+    delete:
+      tags:
+        - homily
+      summary: Deletes a single homily by ID.
+      description: Deletes the homily denoted by the id
+      operationId: deleteHomily
+      parameters:
+        - name: homilyId
+          in: path
+          description: The ID of the homily to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Homily successfully deleted.
+        '404':
+          description: Homily not found.
+  /homily/{homilyId}/coverIllustration:
+    post:
+      tags:
+        - homily
+      summary: Sets an image as a homily cover photo.
+      description: |
+        Sets the specified image as the homily's cover illustration.
+      operationId: setHomilyCoverIllustration
+      parameters:
+        - name: homilyId
+          in: path
+          description: The ID of the homily to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          binary/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        "200":
+          description: Ok
+        "412":
+          description: Homily ID is invalid
+    get:
+      tags:
+        - homily
+      summary: Retrieves the cover illustration of a homily.
+      description: |
+        Retrieves the image serving as the cover illustration for the homily
+        specified by the provided ID.
+      operationId: getHomilyCoverIllustration
+      parameters:
+        - name: homilyId
+          in: path
+          description: The ID of the homily to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "Image retrieved successfully."
+          content:
+            binary/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "204":
+          description: "Homily has no cover illustration."
+        "412":
+          description: "Homily does not exist."
+    delete:
+      tags:
+        - homily
+      summary: Deletes the cover illustration of a homily.
+      description: |
+        Deletes the image serving as the cover illustration for the homily
+        specified by the provided ID.
+      operationId: deleteHomilyCoverIllustration
+      parameters:
+        - name: homilyId
+          in: path
+          description: The ID of the homily to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "Image deleted successfully."
+        "412":
+          description: "Homily does not exist."
+
+  /schedule:
+    get:
+      summary: Retrieves the identifiers of every stored service schedule.
+      description: |
+        Retrieves the identifiers of every stored service schedule.
+      tags:
+        - schedule
+      operationId: getSchedules
+      responses:
+        "200":
+          description: The ID array of stored schedules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int64
+    post:
+      summary: Uploads a new service schedule.
+      description: Saves a new ServiceSchedule in persistent storage.
+      tags:
+        - schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceSchedule'
+      responses:
+        "200":
+          description: Schedule saved.
+        "406":
+          description: |
+            The provided schedule is invalid. It may contain services outside
+            the schedules validity period, or contain nonsensical times, etc.
+
+
+components:
+  schemas:
+    Homily:
+      description: |
+        A homily preached at a given date by a specified speaker, containing
+        the paragraphs of the spoken text as well as an optional cover
+        illustration.
+      type: object
+      properties:
+        id:
+          description: |
+            The unique identifier of this homily stored as a 64-bit number.
+          type: integer
+          format: int64
+          example: 1
+        title:
+          description: |
+            The title of the homily. Should be unique, as to differentiate
+            multiple homilies preached for the same occasion.
+          type: string
+          example: 'The Prodigal Son 2 - Electric Boogaloo'
+        date:
+          description: |
+            The date on which this homily was given.
+          type: string
+          format: date
+          example: '2022-01-01'
+        speaker:
+          description: |
+            The person who gave this homily
+          type: string # TODO: define Speaker type
+          example: 'Fr John'
+        paragraphs:
+          description: |
+            The paragraphs of the homily's text in sequential order.
+          type: array
+          items:
+            type: string
+          example:
+            - "First paragraph."
+            - "Second paragraph."
+      required:
+        - title
+        - date
+        - speaker
+        - paragraphs
+    ServiceType:
+      description: |
+        Enumeration of the possible service types.
+      type: string
+      enum:
+        - matins
+        - divine-liturgy
+        - vespers
+        - presanctified
+        - paraklis
+        - mnimosino
+    Service:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: time
+          example: '06:00'
+        serviceType:
+          $ref: '#/components/schemas/ServiceType'
+    ServiceDay:
+      type: object
+      properties:
+        issue:
+          type: string
+          format: date
+          example: '2022-12-25'
+        feast:
+          type: string
+          example: 'Christmas'
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/Service'
+    ServiceSchedule:
+      type: object
+      properties:
+        validFrom:
+          description: |
+            The first day when this service schedule is in effect.
+          type: string
+          format: date
+          example: '2022-01-01'
+        validTill:
+          description: |
+            The last day when this service schedule is in effect.
+          type: string
+          format: date
+          example: '2022-01-31'
+        serviceDays:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceDay'
