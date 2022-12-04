@@ -22,53 +22,49 @@ import java.util.List;
 @Import({RestApiConfig.class, DomainApiConfig.class, DomainConfig.class})
 public class GiannitsaAppConfig {
 
-    @Bean
-    CommandLineRunner commandLineRunner(
-            HomilyRepository homilyRepository,
-            IllustrationRepository illustrationRepository) {
+  @Bean
+  CommandLineRunner commandLineRunner(HomilyRepository homilyRepository,
+                                      IllustrationRepository illustrationRepository) {
 
-        return args -> {
-            InputStream in = GiannitsaApplication.class
-                    .getResourceAsStream("/catdance.png");
-            assert in != null;
-            byte[] pic = in.readAllBytes();
+    return args -> {
+      InputStream in = GiannitsaApplication.class
+          .getResourceAsStream("/catdance.png");
+      assert in != null;
+      byte[] pic = in.readAllBytes();
 
-            var catDance = new Illustration("catdance", pic);
-            Illustration savedCatDance = illustrationRepository.save(catDance);
+      var catDance = new Illustration("catdance", pic);
+      Illustration savedCatDance = illustrationRepository.save(catDance);
 
-            var h1 = new Homily(
-                    "Title 1",
-                    LocalDate.of(2022, 12, 3),
-                    "Speaker 1", List.of(
-                    "Something first.",
-                    "Something second.")
-            );
+      var h1 = new Homily(
+          "Title 1",
+          LocalDate.of(2022, 12, 3),
+          "Speaker 1",
+          List.of("Something first.", "Something second.")
+      );
 
-            var h2 = new Homily(
-                    "Title 2",
-                    LocalDate.of(2022, 12, 4),
-                    "Speaker 2",
-                    List.of("Blabla",
-                            "asdasdasfsa",
-                            "Something legible")
-            );
+      var h2 = new Homily(
+          "Title 2",
+          LocalDate.of(2022, 12, 4),
+          "Speaker 2",
+          List.of("Blabla", "asdasdasfsa", "Something legible")
+      );
 
-            var h3 = new Homily(
-                    "Title 3",
-                    LocalDate.of(2022, 12, 5),
-                    "Speaker 3",
-                    List.of("Something here.")
-            );
-            System.out.println(h3);
-            Homily savedHomily1 = homilyRepository.save(h1);
-            Homily savedHomily2 = homilyRepository.save(h2);
-            Homily savedHomily3 = homilyRepository.save(h3);
-            System.out.println(savedHomily1);
+      var h3 = new Homily(
+          "Title 3",
+          LocalDate.of(2022, 12, 5),
+          "Speaker 3",
+          List.of("Something here.")
+      );
+      System.out.println(h3);
+      Homily savedHomily1 = homilyRepository.save(h1);
+      Homily savedHomily2 = homilyRepository.save(h2);
+      Homily savedHomily3 = homilyRepository.save(h3);
+      System.out.println(savedHomily1);
 
-            savedHomily1.setCoverIllustration(AggregateReference.to(savedCatDance.getId()));
-            savedHomily3.setCoverIllustration(AggregateReference.to(savedCatDance.getId()));
-            homilyRepository.save(savedHomily1);
-            homilyRepository.save(savedHomily3);
-        };
-    }
+      savedHomily1.setCoverIllustration(AggregateReference.to(savedCatDance.getId()));
+      savedHomily3.setCoverIllustration(AggregateReference.to(savedCatDance.getId()));
+      homilyRepository.save(savedHomily1);
+      homilyRepository.save(savedHomily3);
+    };
+  }
 }

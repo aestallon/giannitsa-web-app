@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 @Import({GiannitsaAppConfig.class})
 public class GiannitsaApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(GiannitsaApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(GiannitsaApplication.class, args);
+  }
 }

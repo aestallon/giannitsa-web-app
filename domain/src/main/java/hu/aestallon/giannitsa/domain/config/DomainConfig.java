@@ -9,5 +9,4 @@ import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 @Configuration
 @EnableJdbcRepositories(basePackageClasses = HomilyRepository.class)
 @EntityScan(basePackages = {"hu.aestallon.giannitsa.domain"})
-public class DomainConfig extends AbstractJdbcConfiguration {
-}
+public class DomainConfig extends AbstractJdbcConfiguration {}

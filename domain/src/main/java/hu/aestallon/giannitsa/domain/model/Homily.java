@@ -33,7 +33,8 @@ public class Homily {
     this.paragraphs = paragraphs;
   }
 
-  public Homily(Long id, String title, LocalDate spokenAt, String speaker, List<String> paragraphs) {
+  public Homily(Long id, String title, LocalDate spokenAt, String speaker,
+                List<String> paragraphs) {
     this.id = id;
     this.title = title;
     this.spokenAt = spokenAt;

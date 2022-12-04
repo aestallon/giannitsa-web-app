@@ -1,6 +1,7 @@
 package hu.aestallon.giannitsa.rest.impl;
 
 import hu.aestallon.giannitsa.domain.api.HomilyService;
+import hu.aestallon.giannitsa.domain.model.Homily;
 import hu.aestallon.giannitsa.domain.model.Illustration;
 import hu.aestallon.giannitsa.rest.api.HomilyApiDelegate;
 import hu.aestallon.giannitsa.rest.model.HomilyDto;
@@ -19,14 +20,15 @@ public class HomilyApiDelegateImpl implements HomilyApiDelegate {
 
   @Override
   public ResponseEntity<List<HomilyDto>> getAllHomilies() {
-    List<hu.aestallon.giannitsa.domain.model.Homily> domainHomilies = homilyService.getAllHomilies();
+    List<Homily> domainHomilies =
+        homilyService.getAllHomilies();
     List<HomilyDto> homilies = domainHomilies.stream()
-            .map(dh -> new HomilyDto()
-                    .id(dh.getId())
-                    .date(dh.getSpokenAt())
-                    .paragraphs(dh.getParagraphs())
-                    .title(dh.getTitle()))
-            .toList();
+        .map(dh -> new HomilyDto()
+            .id(dh.getId())
+            .date(dh.getSpokenAt())
+            .paragraphs(dh.getParagraphs())
+            .title(dh.getTitle())
+        ).toList();
     return ResponseEntity.ok(homilies);
   }
 
