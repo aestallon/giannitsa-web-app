@@ -6,9 +6,6 @@ plugins {
     id "org.openapi.generator" version "6.2.1"
 }
 
-group 'hu.aestallon'
-version '0.0.1-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }
@@ -39,26 +36,21 @@ test {
 }
 
 openApiGenerate {
-    generatorName = "spring"
-    inputSpec = "$rootDir/ui-api-srv-rest/src/main/resources/giannitsa.yaml".toString()
-    outputDir = "$rootDir/ui-api-srv-rest".toString()
-    apiPackage = "hu.aestallon.giannitsa.rest.api"
-    modelPackage = "hu.aestallon.giannitsa.rest.model"
+    generatorName   = "spring"
+    inputSpec       = "$rootDir/ui-api-srv-rest/src/main/resources/giannitsa.yaml".toString()
+    outputDir       = "$rootDir/ui-api-srv-rest".toString()
+    apiPackage      = "hu.aestallon.giannitsa.rest.api"
+    modelPackage    = "hu.aestallon.giannitsa.rest.model"
     modelNameSuffix = "Dto"
-//    typeMappings = [
-//            'string+binary' : "MultipartFile"
-//    ]
-//    importMappings = [
-//            MultipartFile : "org.springframework.web.multipart.MultipartFile"
-//    ]
-    configOptions = [
+    configOptions   = [
             dateLibrary          : "java8",
             delegatePattern      : "true",
             fullJavaUtil         : "true",
             library              : "spring-boot",
             documentationProvied : "none",
             useOptional          : "true",
-            useSwaggerUI         : "false"
+            useSwaggerUI         : "false",
+            hideGenerationTimestamp: "true"
     ]
     globalProperties = [
             apis            : "",

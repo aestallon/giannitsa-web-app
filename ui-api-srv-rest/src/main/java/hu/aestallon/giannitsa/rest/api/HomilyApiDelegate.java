@@ -16,7 +16,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link HomilyApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-12-04T21:55:12.135624600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public interface HomilyApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -114,12 +114,12 @@ public interface HomilyApiDelegate {
      * 
      *
      * @param homily  (required)
-     * @param content  (optional)
+     * @param document  (optional)
      * @return Ok (status code 200)
      * @see HomilyApi#postHomily
      */
     default ResponseEntity<Void> postHomily(HomilyDto homily,
-        MultipartFile content) {
+        MultipartFile document) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

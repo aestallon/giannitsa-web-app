@@ -2,9 +2,6 @@ plugins {
     id 'java-library'
 }
 
-group 'hu.aestallon.giannitsa'
-version 'unspecified'
-
 repositories {
     mavenCentral()
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@PersistenceCreator))
+@Builder
 public class Homily {
 
   @Id
@@ -20,12 +21,4 @@ public class Homily {
   private List<String> paragraphs;
 
   private AggregateReference<Illustration, Long> coverIllustration;
-
-  public Homily(String title, LocalDate spokenAt, String speaker, List<String> paragraphs) {
-    this.title = title;
-    this.spokenAt = spokenAt;
-    this.speaker = speaker;
-    this.paragraphs = paragraphs;
-  }
-
 }

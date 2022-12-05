@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-12-04T21:55:12.135624600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 @Tag(name = "homily", description = "Endpoints relating to CRUD operations for homilies.")
 public interface HomilyApi {
@@ -186,7 +186,7 @@ public interface HomilyApi {
      * 
      *
      * @param homily  (required)
-     * @param content  (optional)
+     * @param document  (optional)
      * @return Ok (status code 200)
      */
     @Operation(
@@ -200,13 +200,13 @@ public interface HomilyApi {
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/homily",
-        consumes = { "multipart/form-data" }
+        consumes = { "multipart/mixed" }
     )
     default ResponseEntity<Void> postHomily(
         @Parameter(name = "homily", description = "", required = true) @Valid @RequestParam(value = "homily", required = true) HomilyDto homily,
-        @Parameter(name = "content", description = "") @RequestPart(value = "content", required = false) MultipartFile content
+        @Parameter(name = "document", description = "") @RequestPart(value = "document", required = false) MultipartFile document
     ) {
-        return getDelegate().postHomily(homily, content);
+        return getDelegate().postHomily(homily, document);
     }
 
 

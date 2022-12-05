@@ -4,10 +4,11 @@ import hu.aestallon.giannitsa.domain.model.Homily;
 import hu.aestallon.giannitsa.domain.model.Illustration;
 import hu.aestallon.giannitsa.domain.repository.HomilyRepository;
 import hu.aestallon.giannitsa.domain.repository.IllustrationRepository;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 public class HomilyServiceImpl implements HomilyService {
 
@@ -21,23 +22,61 @@ public class HomilyServiceImpl implements HomilyService {
   }
 
   @Override
-  public void deleteHomily(Long homilyId) {
+  public List<Homily> getAllHomilies() {
+    final List<Homily> result = new ArrayList<>();
+    homilyRepository.findAll().forEach(result::add);
+    return result;
+  }
+
+  @Override
+  public Optional<Homily> getHomilyById(Long id) {
+    return homilyRepository.findById(id);
+  }
+
+  @Override
+  public Long saveHomily(Homily homily) {
+    return homilyRepository.save(homily).getId();
+  }
+
+  @Override
+  public Homily updateHomily(Homily homily) {
+    if (homily.getId() == null) {
+      throw new IllegalArgumentException("Homily ID cannot be null for update!");
+    }
+    return homilyRepository.save(homily);
+  }
+
+  @Override
+  public void deleteHomilyById(Long homilyId) {
     homilyRepository.deleteById(homilyId);
   }
 
   @Override
-  public List<Homily> getAllHomilies() {
-    return StreamSupport.stream(homilyRepository.findAll().spliterator(), false).toList();
+  public Optional<Illustration> getCoverIllustrationFor(Homily homily) {
+    Long illustrationId = homily.getCoverIllustration().getId();
+    if (illustrationId == null) {
+      return Optional.empty();
+    }
+    return illustrationRepository.findById(illustrationId);
   }
 
   @Override
-  public Illustration getCoverIllustrationByHomilyId(Long id) {
-    Optional<Homily> homily = homilyRepository.findById(id);
-    if (homily.isEmpty() || homily.get().getCoverIllustration().getId() == null) {
-      return null;
+  public void setCoverIllustrationFor(Homily homily, Illustration illustration) {
+    Long illustrationId = illustration.getId();
+    if (illustrationId == null) {
+      illustrationId = illustrationRepository
+          .save(illustration)
+          .getId();
     }
-    Optional<Illustration> illustration =
-        illustrationRepository.findById(homily.get().getCoverIllustration().getId());
-    return illustration.orElse(null);
+    homily.setCoverIllustration(AggregateReference.to(illustrationId));
+    homilyRepository.save(homily);
+  }
+
+  @Override
+  public void deleteCoverIllustrationFor(Homily homily) {
+    if (homily.getCoverIllustration() != null) {
+      homily.setCoverIllustration(null);
+      homilyRepository.save(homily);
+    }
   }
 }

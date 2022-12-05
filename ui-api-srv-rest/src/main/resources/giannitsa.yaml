@@ -24,14 +24,14 @@ paths:
       requestBody:
         required: true
         content:
-          multipart/form-data:
+          multipart/mixed:
             schema:
               type: object
               required: [homily]
               properties:
                 homily:
                   $ref: '#/components/schemas/Homily'
-                content:
+                document:
                   type: string
                   format: binary
       responses:

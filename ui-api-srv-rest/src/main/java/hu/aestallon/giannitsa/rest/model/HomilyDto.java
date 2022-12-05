@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 
 @Schema(name = "Homily", description = "A homily preached at a given date by a specified speaker, containing the paragraphs of the spoken text as well as an optional cover illustration. ")
 @JsonTypeName("Homily")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-12-04T21:55:12.135624600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class HomilyDto {
 
   @JsonProperty("id")

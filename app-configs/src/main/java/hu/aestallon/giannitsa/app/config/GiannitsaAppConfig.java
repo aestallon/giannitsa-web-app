@@ -35,26 +35,32 @@ public class GiannitsaAppConfig {
       var catDance = new Illustration("catdance", pic);
       Illustration savedCatDance = illustrationRepository.save(catDance);
 
-      var h1 = new Homily(
-          "Title 1",
-          LocalDate.of(2022, 12, 3),
-          "Speaker 1",
-          List.of("Something first.", "Something second.")
-      );
+      var h1 = Homily.builder()
+          .title("Title 1")
+          .speaker("Speaker 1")
+          .paragraphs(List.of(
+              "First paragraph.",
+              "Second paragraph",
+              "Last paragraph"
+          )).spokenAt(LocalDate.of(2022, 12, 3))
+          .build();
 
-      var h2 = new Homily(
-          "Title 2",
-          LocalDate.of(2022, 12, 4),
-          "Speaker 2",
-          List.of("Blabla", "asdasdasfsa", "Something legible")
-      );
+      var h2 = Homily.builder()
+          .title("Title 1")
+          .speaker("Speaker 1")
+          .paragraphs(List.of(
+              "Blabla", "asdasdasfsa",
+              "Something legible"
+          )).spokenAt(LocalDate.of(2022, 12, 4))
+          .build();
 
-      var h3 = new Homily(
-          "Title 3",
-          LocalDate.of(2022, 12, 5),
-          "Speaker 3",
-          List.of("Something here.")
-      );
+      var h3 = Homily.builder()
+          .title("Title 1")
+          .speaker("Speaker 1")
+          .paragraphs(List.of("Something here."))
+          .spokenAt(LocalDate.of(2022, 12, 5))
+          .build();
+
       System.out.println(h3);
       Homily savedHomily1 = homilyRepository.save(h1);
       Homily savedHomily2 = homilyRepository.save(h2);
